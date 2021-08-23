@@ -1,7 +1,6 @@
 package com.example.myapplication;
 
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
@@ -16,10 +15,14 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.example.myapplication.router.RouterPath;
 import com.example.myapplication.utils.CommonUtils;
 import com.example.myapplication.utils.ToastUtils;
 
-public class Login extends AppCompatActivity {
+@Route(path = RouterPath.ACTIVITY_URL_LOGIN)
+public class Login extends BaseActivity {
     private EditText textView;
     private EditText phoneView;
     private Button clearView;
@@ -60,6 +63,13 @@ public class Login extends AppCompatActivity {
         forgetPassword4 = findViewById(R.id.forget_password4);
         login = findViewById(R.id.login);
 
+        findViewById(R.id.Register).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ARouter.getInstance().build(RouterPath.ACTIVITY_URL_REGISTER).navigation();
+            }
+        });
+
         phoneView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -89,6 +99,7 @@ public class Login extends AppCompatActivity {
             public void onClick(View view) {
                 if(CommonUtils.isPhone(phoneView.getText().toString())){
                     myCountDownTimer.start();
+                    ToastUtils.showToast(Login.this,"请勿重复点击，已发送验证码");
                 } else {
                     ToastUtils.showToast(Login.this,"手机号码格式错误");
                 }
