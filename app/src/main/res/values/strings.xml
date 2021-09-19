@@ -10,4 +10,11 @@
     <string name="confirm_password">请确认密码</string>
     <string name="input_password">请输入密码</string>
     <string name="password_length">请输入6-20位密码</string>
+    <string name="mine">我的</string>
+    <string name="mall">商城</string>
+    <string name="home">首页</string>
+    <string name="navigator">导航</string>
+    <string name="add_oil">一键加油</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

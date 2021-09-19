@@ -1,7 +1,6 @@
-package com.example.myapplication;
+package com.example.myapplication.acivity;
 
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.Build;
@@ -12,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.example.myapplication.BaseActivity;
+import com.example.myapplication.R;
 import com.example.myapplication.router.RouterPath;
 import com.example.myapplication.utils.CommonUtils;
 import com.example.myapplication.utils.ToastUtils;

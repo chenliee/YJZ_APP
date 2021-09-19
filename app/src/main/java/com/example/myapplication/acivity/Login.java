@@ -1,6 +1,7 @@
-package com.example.myapplication;
+package com.example.myapplication.acivity;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
@@ -17,6 +18,8 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.example.myapplication.BaseActivity;
+import com.example.myapplication.R;
 import com.example.myapplication.router.RouterPath;
 import com.example.myapplication.utils.CommonUtils;
 import com.example.myapplication.utils.ToastUtils;
@@ -67,6 +70,14 @@ public class Login extends BaseActivity {
             @Override
             public void onClick(View v) {
                 ARouter.getInstance().build(RouterPath.ACTIVITY_URL_REGISTER).navigation();
+            }
+        });
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ARouter.getInstance().build(RouterPath.ACTIVITY_URL_MAIN).navigation();
             }
         });
 
