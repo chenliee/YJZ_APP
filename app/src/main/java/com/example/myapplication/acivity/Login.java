@@ -10,6 +10,7 @@ import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,11 +24,15 @@ import com.example.myapplication.R;
 import com.example.myapplication.router.RouterPath;
 import com.example.myapplication.utils.CommonUtils;
 import com.example.myapplication.utils.ToastUtils;
+import com.example.myapplication.utils.http.HttpClient;
+
+import okhttp3.FormBody;
 
 @Route(path = RouterPath.ACTIVITY_URL_LOGIN)
 public class Login extends BaseActivity {
     private EditText textView;
     private EditText phoneView;
+    private EditText passwordView;
     private Button clearView;
     private Button getTextView;
     private Button isVisibility;
@@ -53,6 +58,7 @@ public class Login extends BaseActivity {
         setContentView(R.layout.activity_login);
         textView = findViewById(R.id.text);
         phoneView = findViewById(R.id.phone);
+        passwordView = findViewById(R.id.get_password);
         clearView = findViewById(R.id.clear_button);
         getTextView = findViewById(R.id.get_text);
         isVisibility = findViewById(R.id.is_visibility);
@@ -191,6 +197,11 @@ public class Login extends BaseActivity {
         getTextView.setVisibility(View.VISIBLE);
         isVisibility.setVisibility(View.GONE);
         textView.setInputType(InputType.TYPE_CLASS_NUMBER);
+    }
+
+    public void Login(View view) {
+        FormBody formBody = new FormBody.Builder().add("phone",phoneView.getText().toString()).add("password",textView.getText().toString()).build();
+        HttpClient.getHttpClient().postHttp("/app/user/login",formBody);
     }
 
 

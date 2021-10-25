@@ -146,6 +146,7 @@
         android:visibility="gone">
 
         <EditText
+            android:id="@+id/get_password"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -291,7 +292,8 @@
         android:textColor="@color/white"
         android:textStyle="bold"
         android:background="@drawable/shape_rectangle"
-        android:backgroundTint="@color/colorPrimary"/>
+        android:backgroundTint="@color/colorPrimary"
+        android:onClick="Login"/>
 
 
 </LinearLayout>
