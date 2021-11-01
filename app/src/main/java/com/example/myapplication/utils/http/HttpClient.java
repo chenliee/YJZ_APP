@@ -2,8 +2,14 @@ package com.example.myapplication.utils.http;
 
 //import org.apache.http.params.HttpParams;
 
+import android.content.Context;
+import android.os.Looper;
 import android.text.format.Time;
 import android.util.Log;
+
+import com.example.myapplication.acivity.Login;
+import com.example.myapplication.utils.ToastUtils;
+import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -20,8 +26,9 @@ import okhttp3.Response;
 
 public class HttpClient {
     static String url = "http://one.bbkt.cn";
-    static String token;
+    static String token = "";
     private static HttpClient httpClient;
+    static Gson gson = new Gson();
     private HttpClient(){
         client = initOkHttpClient();
     }
@@ -42,8 +49,9 @@ public class HttpClient {
         return httpClient;
     }
 
-    public void getHttp(String uri){
+    public String getHttp(String uri,final Context context){
         Request request;
+        final String[] responseBody = new String[1];
         if(token.length() != 0){
             request = new Request.Builder().url(this.url + uri).addHeader("auth",token).build();
         } else{
@@ -58,15 +66,23 @@ public class HttpClient {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 if(response.isSuccessful()){
-                    Log.e("登录",response.body().toString());
+                    HttpResult result = gson.fromJson(response.body().string(),HttpResult.class);
+                    if(result.getStatus() == false){
+                        ToastUtils.showToast(context,result.getErrorMsg());
+                    } else {
+                        responseBody[0] = response.body().string();
+                    }
                 }
             }
         });
+        return responseBody[0];
     }
 
-    public void postHttp(String uri, FormBody body){
+    public String postHttp(String uri, FormBody body, final Context context){
         Request request;
+        final String[] responseBody = new String[1];
         if(token.length()!= 0) {
+            Log.e("抛异常","1");
             request = new Request.Builder().url(this.url + uri).addHeader("auth", token).post(body).build();
         } else {
             request = new Request.Builder().url(this.url + uri).post(body).build();
@@ -80,10 +96,18 @@ public class HttpClient {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 if(response.isSuccessful()){
-                    Log.e("登录",response.body().toString());
+                    HttpResult result = gson.fromJson(response.body().string(),HttpResult.class);
+                    if(result.getStatus() == false){
+                        Looper.prepare();
+                        ToastUtils.showToast(context,result.getErrorMsg());
+                        Looper.loop();
+                    } else {
+                        responseBody[0] = response.body().string();
+                    }
                 }
             }
         });
+        return responseBody[0];
     }
 
 }

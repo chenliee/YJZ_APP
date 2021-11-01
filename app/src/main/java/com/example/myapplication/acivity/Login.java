@@ -201,7 +201,7 @@ public class Login extends BaseActivity {
 
     public void Login(View view) {
         FormBody formBody = new FormBody.Builder().add("phone",phoneView.getText().toString()).add("password",textView.getText().toString()).build();
-        HttpClient.getHttpClient().postHttp("/app/user/login",formBody);
+        HttpClient.getHttpClient().postHttp("/app/user/login",formBody,Login.this);
     }
 
 
